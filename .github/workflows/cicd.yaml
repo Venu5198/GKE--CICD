@@ -18,7 +18,12 @@ jobs:
       with:
         project_id: venu-5198
         service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        export_default_credentials: true   # ✅ Important line
+
+    - name: Authenticate GCP account (optional safety step)
+      run: |
+        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+        gcloud config set project venu-5198
 
     - name: Get GKE credentials
       run: |
